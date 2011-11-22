@@ -3,10 +3,9 @@
 //This file is to draw a line with DDA
 #include <cmath>
 #include <iostream>
-#include <gl\glut.h>
-using namespace std;
-
-int winWidth;
+#include <GL/glut.h>
+#include <GL/glu.h>
+using namespace std; int winWidth;
 int winHeight;
 
 void glMidBresenhamLine(int x0, int y0, int x1, int y1)

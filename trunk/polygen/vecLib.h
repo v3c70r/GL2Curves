@@ -4,7 +4,7 @@
  *This file is used to define points lines and polygen.
  * Hope this stuff works well!
  * */
-#include <gl\glut.h>
+#include <GL/glut.h>
 #include <vector>
 using namespace std;
 struct Line;
