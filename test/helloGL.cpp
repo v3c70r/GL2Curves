@@ -1,4 +1,4 @@
-#include <GL\glut.h>
+#include <GL/glut.h>
 #include <iostream>
 int iPointNum = 0;
 int x1 = 0, x2 = 0, y1 = 0, y2 = 0, xCross = 0, yCross = 0,  strIndex;		//tow points of line
