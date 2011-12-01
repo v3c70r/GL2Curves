@@ -7,6 +7,8 @@ using namespace std;
 int winWidth;
 int winHeight;
 Polygen myPoly;
+int selectedPoint;
+bool movePoint = false;
 
 void initial()
 {
@@ -39,15 +41,39 @@ void mousePlot(GLint button, GLint action, GLint xMouse, GLint yMouse)
 {
     if(button == GLUT_LEFT_BUTTON && action == GLUT_DOWN)   //if left button of mouse have been pressed
     {
-
-
-        Point newPoint(xMouse, winHeight-yMouse);
-        myPoly.addPoint(newPoint);
+        if((selectedPoint = myPoly.selectPoint(xMouse, winHeight-yMouse)) == -1)     //if no point selecte, add a point to it's end
+        {
+            Point newPoint(xMouse, winHeight-yMouse);
+            myPoly.addPoint(newPoint);
+        }
+        else                //change position of a point
+        {
+            movePoint = true;
+        }
+    }
+    if(button == GLUT_LEFT_BUTTON && action == GLUT_UP)   //if left button of mouse have been released
+    {
+        movePoint = false;
+    }
+    if(button == GLUT_RIGHT_BUTTON && action == GLUT_DOWN)   //if right button of mouse have been down. erase selected pont
+    {
+        if((selectedPoint = myPoly.selectPoint(xMouse,winHeight-yMouse)) != -1)
+        {
+            myPoly.deletePoint(selectedPoint);
+        }
     }
     glutPostRedisplay();
 
 }
 
+void mouseMoveEvent(int x, int y)
+{
+    if(movePoint)
+    {
+        myPoly.setPointPosition(selectedPoint ,x , winHeight-y);
+        glutPostRedisplay();
+    }
+}
 
 
 int main(int argc, char **argv)
@@ -61,6 +87,7 @@ int main(int argc, char **argv)
     glutDisplayFunc(display);
     glutReshapeFunc(changeSize);
     glutMouseFunc(mousePlot);
+    glutMotionFunc(mouseMoveEvent);
     initial();
     glutMainLoop();
     return 0;

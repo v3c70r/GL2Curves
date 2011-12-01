@@ -4,8 +4,12 @@
  *This file is used to define points lines and polygen.
  * Hope this stuff works well!
  * */
+/*********************
+ *Require  : Add drage points in polygen
+ **********************/
 #include <GL/glut.h>
 #include <vector>
+#include <stdio.h>
 using namespace std;
 struct Line;
 struct Rectangle;
@@ -44,7 +48,6 @@ struct Line
         end = p1;
     }
     void glDraw();
-
 };
 
 
@@ -76,6 +79,7 @@ struct Polygen
     {
         vertex = points;
     }
+    void setPointPosition(int index, int x, int y);
 
     void addPoint(Point p)
     {
@@ -87,6 +91,16 @@ struct Polygen
         Point p(x, y);
         vertex.push_back(p);
     }
+//delete a point based on it's index;
+    void deletePoint(int index)
+    {
+        vertex.erase(vertex.begin()+index);
+    }
+    void drawCoordinate();
+
+//this function gonna return an index of point if this point is near x, y,
+//if there's no point fond in this area, return -1
+    int selectPoint(int x, int y);         
 
     void glDraw();
 };
