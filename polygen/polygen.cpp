@@ -33,6 +33,7 @@ void display()
     glColor3f(0.0, 0.0, 0.0);
 
     myPoly.glDraw();
+    myPoly.glFill(255,255,255);
 
     glutSwapBuffers();
 }

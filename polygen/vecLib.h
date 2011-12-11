@@ -7,6 +7,8 @@
 /*********************
  *Require  : Add drage points in polygen
  **********************/
+#ifndef VECLIB_H
+#define VECLIB_H
 #include <GL/glut.h>
 #include <vector>
 #include <stdio.h>
@@ -14,6 +16,22 @@ using namespace std;
 struct Line;
 struct Rectangle;
 struct Polygen;
+struct ET
+{
+    int x;
+    int yMax;
+    double k;
+    ET *next;
+    //constructor, header
+    ET()
+    {
+        x = 0;
+        yMax = 0;
+        k = 0;
+        next = NULL;
+    }
+};
+
 struct Point
 {
     int x;
@@ -103,7 +121,9 @@ struct Polygen
     int selectPoint(int x, int y);         
 
     void glDraw();
+    //fill polygen with ET
+    void glFill(int r, int g, int b);
 };
     
-
+#endif
 
