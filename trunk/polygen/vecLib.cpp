@@ -4,6 +4,7 @@
  *  This file realize the functions in vecLib.h
  */
 #include "vecLib.h"
+#include <iostream>
 struct Line;
 struct Rectangle;
 struct Polygen;
@@ -80,8 +81,62 @@ void Polygen::drawCoordinate()
     }
 }
 
+//fill this polygen with RGB below 
+void Polygen::glFill(int r, int g, int b)
+{
+    if(vertex.size() < 3)
+        return;
+    //find highest and lowest point of polygen
+    int yMax = vertex[0].y;
+    int yMin = vertex[0].y;
+    for(int i=1 ; i < vertex.size(); i++)
+    {
+        if (vertex[i].y > yMax)
+            yMax = vertex[i].y;
+        if (vertex[i].y < yMin)
+            yMin = vertex[i].y;
+    }
+    std::cout<<yMax<<"  "<<yMin<<endl;
+    /*
+     * Create ETList and fill it
+     */
+    struct ET *ETList = new ET[yMax-yMin+1];
+    //add all elements into ETList
+    for(int i = 0; i < vertex.size(); i++)
+    {
+       ET *elem = new ET;       //build an element
+       Point start = vertex[i]; 
+       Point end = vertex[(i+1)%vertex.size()];
+       if(start.y == end.y) continue;
+       elem->k = (double)(start.x - end.x)/(start.y - end.y);
+       if(start.y < end.y)
+       {
+           elem->x = start.x;
+           elem->yMax = end.y - yMin;
+           elem->next = ETList[start.y-yMin].next;
+           ETList[start.y-yMin].next = elem;
+       }
+       else
+       {
+           elem->x = end.x;
+           elem->yMax = start.y - yMin;
+           elem->next = ETList[end.y-yMin].next;
+           ETList[end.y-yMin].next = elem;
+       }
+    }
 
+    /*
+     *Fill polygen 
+     */
+    for(int i = 0; i <= (yMax - yMin); i++)
+    {
+        ET *elem = ETList[i].next;
+        while(elem != NULL)
+        {
+            std::cout<<i<<"\t"<<(elem->x)<<"\t"<<(elem->yMax)<<"\t"<<(elem->k)<<endl;
+            elem = elem->next;
+        }
+    }
+}
 
-
-
-
+        
