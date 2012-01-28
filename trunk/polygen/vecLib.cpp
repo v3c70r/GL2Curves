@@ -1,13 +1,11 @@
 /* FileName: vecLib.cpp
- * Author  : Vector(mcvector.gu@gmail.com)
- * Description:
+ * Author  : Vector(mcvector.gu@gmail.com) * Description:
  *  This file realize the functions in vecLib.h
  */
 #include "vecLib.h"
+#include "ET.h" 
 #include <iostream>
-struct Line;
-struct Rectangle;
-struct Polygen;
+struct Line; struct Rectangle; struct Polygen;
 void Point::glDraw()
 {
     glBegin(GL_POINTS);
@@ -23,9 +21,7 @@ void Line::glDraw()
         glVertex2i(end.x, end.y);
     glEnd();
 }
-
-void Rectangle::glDraw()
-{
+void Rectangle::glDraw() {
 
     glRecti(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
 }
@@ -79,11 +75,13 @@ void Polygen::drawCoordinate()
             glutBitmapCharacter(font, text[j]);
         }
     }
+    
 }
 
 //fill this polygen with RGB below 
 void Polygen::glFill(int r, int g, int b)
 {
+    glColor3d(r, g, b);
     if(vertex.size() < 3)
         return;
     //find highest and lowest point of polygen
@@ -96,47 +94,92 @@ void Polygen::glFill(int r, int g, int b)
         if (vertex[i].y < yMin)
             yMin = vertex[i].y;
     }
-    std::cout<<yMax<<"  "<<yMin<<endl;
-    /*
-     * Create ETList and fill it
-     */
-    struct ET *ETList = new ET[yMax-yMin+1];
+    //std::cout<<yMax<<"  "<<yMin<<endl;
+    ET *ETList = new ET[yMax-yMin+1];
+    ET *AETList = new ET[yMax - yMin + 1];
     //add all elements into ETList
     for(int i = 0; i < vertex.size(); i++)
     {
-       ET *elem = new ET;       //build an element
+       ETNode *elem = new ETNode;       //build an element
        Point start = vertex[i]; 
        Point end = vertex[(i+1)%vertex.size()];
        if(start.y == end.y) continue;
-       elem->k = (double)(start.x - end.x)/(start.y - end.y);
+       elem->k = ((double)(start.x - end.x))/((double)(start.y - end.y));
        if(start.y < end.y)
        {
            elem->x = start.x;
            elem->yMax = end.y - yMin;
-           elem->next = ETList[start.y-yMin].next;
-           ETList[start.y-yMin].next = elem;
+           ETList[start.y-yMin].insertAfterHead(elem);
        }
        else
        {
            elem->x = end.x;
            elem->yMax = start.y - yMin;
-           elem->next = ETList[end.y-yMin].next;
-           ETList[end.y-yMin].next = elem;
+           ETList[end.y-yMin].insertAfterHead(elem);
        }
+       
     }
-
+    //debug output ET list
     /*
-     *Fill polygen 
-     */
-    for(int i = 0; i <= (yMax - yMin); i++)
+    for(int i=0; i <= yMax-yMin; i++)
     {
-        ET *elem = ETList[i].next;
-        while(elem != NULL)
+        if(!ETList[i].isEmpty())
         {
-            std::cout<<i<<"\t"<<(elem->x)<<"\t"<<(elem->yMax)<<"\t"<<(elem->k)<<endl;
-            elem = elem->next;
+            ETList[i].printET();
+
+            std::cout<<std::endl;
         }
     }
+    */
+
+
+    for(int i = 0; i <= yMax - yMin; i++)
+    {
+        //build new AET entry from previous AET entry
+        if(i > 0)
+            AETList[i].generateFromPreAET(AETList[i-1]);
+        //if ET list is not empty, merge it
+        if(!ETList[i].isEmpty())
+            AETList[i].mergeWithET(ETList[i]);
+
+        //check if elem meet yMax;
+        AETList[i].checkYMax(i);
+        //draw x, i+yMin 
+        /*
+        std::cout<<i<<endl;
+        AETList[i].printET();
+        std::cout<<std::endl;
+        */
+        
+
+        //draw
+        bool draw = false;
+        ETNode *elem = AETList[i].exposeHead()->next;
+        while(elem != NULL)
+        {
+            for(int j=elem->x; j < elem->next->x; j++)
+            {
+                glBegin(GL_POINTS);
+                    glVertex2i(j, i+yMin);
+                glEnd();
+            }
+            elem = elem->next->next;
+        }
+    }
+    /*
+    for(int i=0; i <= yMax-yMin; i++)
+    {
+        {
+            ETNode *elem = AETList[i].exposeHead()->next;
+            while(elem != NULL)
+            {
+                std::cout<<elem->x<<", "<<i+yMin<<", "<<elem->k<<'\t';
+                elem = elem->next;
+            }
+            std::cout<<std::endl;
+        }
+    }
+    */
+
 }
 
-        

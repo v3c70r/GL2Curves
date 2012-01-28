@@ -16,21 +16,7 @@ using namespace std;
 struct Line;
 struct Rectangle;
 struct Polygen;
-struct ET
-{
-    int x;
-    int yMax;
-    double k;
-    ET *next;
-    //constructor, header
-    ET()
-    {
-        x = 0;
-        yMax = 0;
-        k = 0;
-        next = NULL;
-    }
-};
+   
 
 struct Point
 {
@@ -123,7 +109,10 @@ struct Polygen
     void glDraw();
     //fill polygen with ET
     void glFill(int r, int g, int b);
+    void glClip(int xTopLeft, int yTopLeft, int xBottomLeft, int yBottomLeft);
 };
+
+
     
 #endif
 
