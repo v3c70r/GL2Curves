@@ -3,6 +3,7 @@
 #include "vecLib.h"
 #include <vector>
 using namespace std;
+//set font
 
 int winWidth;
 int winHeight;
@@ -13,6 +14,7 @@ bool movePoint = false;
 void initial()
 {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);   //backgroud color is white
+    //set font
 }
 
 void changeSize(int w, int h)
@@ -29,11 +31,27 @@ void changeSize(int w, int h)
 void display()
 {
      
+    void *font = GLUT_BITMAP_8_BY_13;
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0, 0.0, 0.0);
 
+    //instructions
+    glColor3d(255,0,0);
+    char instruction_1[] = "#You can drag a point to move it.";
+    char instruction_2[] = "#Right click on a point to delete it.";
+    glRasterPos2d(5, winHeight-10);
+    for(int j=0; instruction_1[j] != '\0'; j++)
+    {
+        glutBitmapCharacter(font, instruction_1[j]);
+    }
+    glRasterPos2d(5, winHeight-25);
+    for(int j=0; instruction_2[j] != '\0'; j++)
+    {
+        glutBitmapCharacter(font, instruction_2[j]);
+    }
+    //myPoly.glDraw();
+    myPoly.glFill(255,0,5);
+    glColor3d(0,0,0);
     myPoly.glDraw();
-    myPoly.glFill(255,255,255);
 
     glutSwapBuffers();
 }
@@ -84,7 +102,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);	//double buffer
     glutInitWindowSize(400, 300);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Draw Line");
+    glutCreateWindow("Draw Polygen");
     glutDisplayFunc(display);
     glutReshapeFunc(changeSize);
     glutMouseFunc(mousePlot);
@@ -93,20 +111,5 @@ int main(int argc, char **argv)
     glutMainLoop();
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
