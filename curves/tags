@@ -1,0 +1,27 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+POINT2D_H	point2D.h	2;"	d
+POINTSARRAY_H	pointsArray.h	2;"	d
+Pint2D	point2D.h	/^    Pint2D(const Point2D &other){x = other.x; y = other.y;} \/\/copy constructor$/;"	f	class:Point2D
+Pint2D	point2D.h	/^    Pint2D(double px, double py){x = px; y = py;} \/\/constructor$/;"	f	class:Point2D
+Point2D	point2D.h	/^class Point2D$/;"	c
+PointsArray	pointsArray.h	/^class PointsArray$/;"	c
+addBack	pointsArray.h	/^    void addBack(Point2D point)         \/\/add a point at end of the array$/;"	f	class:PointsArray
+deletePoint	pointsArray.h	/^    void deletePoint( int index )       \/\/remove point at index from array$/;"	f	class:PointsArray
+glDraw	point2D.cpp	/^void Point2D::glDraw(int type)$/;"	f	class:Point2D
+operater	point2D.cpp	/^Point2D Point2D::operater + (const Point2D &other) const$/;"	f	class:Point2D
+operater	point2D.cpp	/^Point2D Point2D::operater - (const Point2D &other) const$/;"	f	class:Point2D
+operater	point2D.h	/^    void operater = (const Point2D &other){ x = other.x; y = other.y; }$/;"	m	class:Point2D
+point	pointsArray.h	/^    Point2D point(int index)            \/\/return point at index$/;"	f	class:PointsArray
+setX	point2D.h	/^    void setX(double px){ x = px; }$/;"	f	class:Point2D
+setY	point2D.h	/^    void setY(double px){ y = py; }$/;"	f	class:Point2D
+size	pointsArray.h	/^    int size()                          \/\/return the size of array$/;"	f	class:PointsArray
+vertex	pointsArray.h	/^    vector<Point2D> vertex;$/;"	m	class:PointsArray
+x	point2D.h	/^    double x() const{return x;}$/;"	f	class:Point2D
+x	point2D.h	/^    double x;$/;"	m	class:Point2D
+y	point2D.h	/^    double y() const{return y;}$/;"	f	class:Point2D
+y	point2D.h	/^    double y;$/;"	m	class:Point2D
