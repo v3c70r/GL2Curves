@@ -7,9 +7,9 @@ using namespace std;
 
 int winWidth;
 int winHeight;
-//Curve *curve = new Hermit;
+Curve *curve = new Hermit;
 //Curve *curve = new Bezier;
-Curve * curve = new SpLine;
+//Curve * curve = new SpLine;
 int selectedPoint;
 bool movePoint = false;
 
