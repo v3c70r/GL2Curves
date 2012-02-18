@@ -7,7 +7,9 @@ using namespace std;
 
 int winWidth;
 int winHeight;
-Hermit myHermit;
+//Curve *curve = new Hermit;
+//Curve *curve = new Bezier;
+Curve * curve = new SpLine;
 int selectedPoint;
 bool movePoint = false;
 
@@ -49,7 +51,10 @@ void display()
         glutBitmapCharacter(font, instruction_2[j]);
     }
     //Draw Hermit here
-    myHermit.glDraw();
+    //curve.glDraw(50);
+
+    glColor3d(0,0,255);
+    curve->glDraw(100);
 
     glutSwapBuffers();
 }
@@ -58,10 +63,10 @@ void mousePlot(GLint button, GLint action, GLint xMouse, GLint yMouse)
 {
     if(button == GLUT_LEFT_BUTTON && action == GLUT_DOWN)   //if left button of mouse have been pressed
     {
-        if((selectedPoint = myHermit.selectPoint(xMouse, winHeight-yMouse)) == -1)     //if no point selecte, add a point to it's end
+        if((selectedPoint = curve->selectPoint(xMouse, winHeight-yMouse)) == -1)     //if no point selecte, add a point to it's end
         {
             Point2D newPoint(xMouse, winHeight-yMouse);
-            myHermit.addBack(newPoint);
+            curve->addBack(newPoint);
         }
         else                //change position of a point
         {
@@ -74,9 +79,9 @@ void mousePlot(GLint button, GLint action, GLint xMouse, GLint yMouse)
     }
     if(button == GLUT_RIGHT_BUTTON && action == GLUT_DOWN)   //if right button of mouse have been down. erase selected pont
     {
-        if((selectedPoint = myHermit.selectPoint(xMouse,winHeight-yMouse)) != -1)
+        if((selectedPoint = curve->selectPoint(xMouse,winHeight-yMouse)) != -1)
         {
-            myHermit.deletePoint(selectedPoint);
+            curve->deletePoint(selectedPoint);
         }
     }
     glutPostRedisplay();
@@ -87,7 +92,7 @@ void mouseMoveEvent(int x, int y)
 {
     if(movePoint)
     {
-        myHermit.setPosition(selectedPoint ,x , winHeight-y);
+        curve->setPosition(selectedPoint ,x , winHeight-y);
         glutPostRedisplay();
     }
 }
