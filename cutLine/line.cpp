@@ -27,11 +27,16 @@ void Line::cut(int xTopLeft, int yTopLeft, int xBottomRight, int yBottomRight)
     for(int i=0; i < 4 ; i++)
     {
         getCutCode(xTopLeft, yTopLeft, xBottomRight, yBottomRight);
-        if( (startCutCode | endCutCode) == 0)
+        if( (startCutCode | endCutCode) == 0)   //both points are inside the cut rectangle
+        {
             return;
+        }
 
         if( (startCutCode & endCutCode) != 0)
+        {
             setEndPoint(x0, y0);
+            return;
+        }
 
         if(startCutCode == 0x00)
             swapStartEnd();
@@ -51,7 +56,7 @@ void Line::cut(int xTopLeft, int yTopLeft, int xBottomRight, int yBottomRight)
             y0 = (xTopLeft - x0)*(y1-y0)/(x1-x0)+y0; 
             x0 = xTopLeft; 
         }
-        else //if(startCutCode&0x02)    righter than right
+        else if(startCutCode&0x02) //   righter than right
         {
             y0 = (xBottomRight - x0)*(y1-y0)/(x1-x0)+y0; 
             x0 = xBottomRight; 
