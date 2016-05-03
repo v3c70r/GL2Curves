@@ -7,9 +7,13 @@ using namespace std;
 
 int winWidth;
 int winHeight;
+#ifdef HERMIT
 Curve *curve = new Hermit;
-//Curve *curve = new Bezier;
-//Curve * curve = new SpLine;
+#elif defined BEZIER
+Curve *curve = new Bezier;
+#else
+Curve * curve = new SpLine;
+#endif
 int selectedPoint;
 bool movePoint = false;
 

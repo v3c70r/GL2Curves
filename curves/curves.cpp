@@ -28,7 +28,7 @@ void Hermit::glDraw(int iterTimes)
         t += step;
         tNext = vertex[0]*(2*t*t*t - 3*t*t + 1) + vertex[2]*(-2*t*t*t + 3*t*t)
             + rStart*(t*t*t - 2*t*t + t) + rEnd*(t*t*t - t*t);
-        glBegin(GL_LINE);
+        glBegin(GL_LINES);
             glVertex2d(tPre.getX(), tPre.getY());
             glVertex2d(tNext.getX(), tNext.getY());
         glEnd();
@@ -68,7 +68,7 @@ void Bezier::glDraw(int iterTimes)
                 pNext = pNext + vertex[i]*(factorial(size-1)/(factorial(i)*factorial(size-1-i)))
                     *pow(t,i)*pow((1-t), (size-1-i));
             
-            glBegin(GL_LINE);
+            glBegin(GL_LINES);
                 glVertex2d(pPre.getX(), pPre.getY());
                 glVertex2d(pNext.getX(), pNext.getY());
             glEnd();
@@ -81,7 +81,7 @@ void Bezier::glDraw(int iterTimes)
         if( i < size-1)
         {
             //draw line between verteices
-            glBegin(GL_LINE);
+            glBegin(GL_LINES);
                 glVertex2d(vertex[i].getX(), vertex[i].getY());
                 glVertex2d(vertex[i+1].getX(), vertex[i+1].getY());
             glEnd();
@@ -114,7 +114,7 @@ void SpLine::glDraw(int iterTimes)
                 t += step;
                 pEnd = vertex[i+1]*(2*t*t*t - 3*t*t + 1) + vertex[i+2]*(-2*t*t*t + 3*t*t)
                     + rStart*(t*t*t - 2*t*t + t) + rEnd*(t*t*t - t*t);
-                glBegin(GL_LINE);
+                glBegin(GL_LINES);
                     glVertex2d(pStart.getX(), pStart.getY());
                     glVertex2d(pEnd.getX(), pEnd.getY());
                 glEnd();
