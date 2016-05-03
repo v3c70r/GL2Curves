@@ -12,5 +12,6 @@ This repository contains some interesting OpenGL experiments I have done a few y
 ![poly](https://raw.githubusercontent.com/v3c70r/learnopngl/master/gifs/poly.gif)
 ## Clipping
 [Clipping of line](http://www.cc.gatech.edu/grads/h/Hao-wei.Hsieh/Haowei.Hsieh/mm.html) is implemented in [cutLine](https://github.com/v3c70r/learnopngl/tree/master/cutLine) folder.
+
 ![cutline] (https://raw.githubusercontent.com/v3c70r/learnopngl/master/gifs/cutline.gif)
 
