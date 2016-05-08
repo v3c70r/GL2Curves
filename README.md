@@ -8,7 +8,7 @@ This repository contains some interesting OpenGL experiments I have done a few y
 ### Cubic spline
 ![cubic](https://raw.githubusercontent.com/v3c70r/learnopngl/master/gifs/spline.gif)
 ## Polygon Filling Algorithm
-[Polygon Filling Algorithm](https://www.cs.uic.edu/~jbell/CourseNotes/ComputerGraphics/PolygonFilling.html) is placed in [polygon](https://github.com/v3c70r/learnopngl/tree/master/polygen) folder. Use don't remember to link glut and GL when compile.
+[Polygon Filling Algorithm](https://www.cs.uic.edu/~jbell/CourseNotes/ComputerGraphics/PolygonFilling.html) is placed in [polygon](https://github.com/v3c70r/learnopngl/tree/master/polygen) folder. Don't forget to link glut and GL when compile.
 ![poly](https://raw.githubusercontent.com/v3c70r/learnopngl/master/gifs/poly.gif)
 ## Clipping
 [Clipping of line](http://www.cc.gatech.edu/grads/h/Hao-wei.Hsieh/Haowei.Hsieh/mm.html) is implemented in [cutLine](https://github.com/v3c70r/learnopngl/tree/master/cutLine) folder.
